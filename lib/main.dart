@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Countries Interview App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Color(0xff4f359b)),
+      theme: ThemeData(primaryColor: Colors.blue),
       home: Splashscreen(),
     );
   }
