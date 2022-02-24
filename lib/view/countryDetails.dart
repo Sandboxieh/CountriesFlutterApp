@@ -1,3 +1,4 @@
+import 'package:countries_interview_application/view/noteList.dart';
 import 'package:flutter/material.dart';
 import 'package:countries_interview_application/model/countryModel.dart';
 
@@ -112,7 +113,10 @@ class CountryDetailsPage extends StatelessWidget {
     );
     final floatingActionButton = FloatingActionButton.extended(
       onPressed: () {
-        // lateer
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => NoteScreen(countryid: country.id)));
       },
       label: const Text('Notes'),
       icon: const Icon(Icons.note),
