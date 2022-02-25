@@ -7,18 +7,18 @@ String countryToJson(List<Country> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Country {
-  Country({
-    this.id,
-    this.enabled,
-    this.code3L,
-    this.code2L,
-    this.name,
-    this.nameOfficial,
-    this.flag,
-    this.latitude,
-    this.longitude,
-    this.zoom,
-  });
+  Country(
+      {this.id,
+      this.enabled,
+      this.code3L,
+      this.code2L,
+      this.name,
+      this.nameOfficial,
+      this.flag,
+      this.latitude,
+      this.longitude,
+      this.zoom,
+      this.distance});
 
   dynamic id;
   String enabled;
@@ -30,7 +30,7 @@ class Country {
   String latitude;
   String longitude;
   String zoom;
-
+  double distance;
   factory Country.fromJson(Map<String, dynamic> json) => Country(
         id: json["id"],
         enabled: json["enabled"],

@@ -12,7 +12,7 @@ class CountriesList extends StatefulWidget {
 
 class _CountriesListState extends State<CountriesList> {
   //
-  List<Country> _countries;
+  List<Country> _countries = [];
   bool _loading;
   @override
   void initState() {
@@ -28,6 +28,8 @@ class _CountriesListState extends State<CountriesList> {
 
   @override
   Widget build(BuildContext context) {
+    distanceCalculation(
+        CountryController.metidelongitude, CountryController.metidelatitude);
     ListTile makeListTile(country) => ListTile(
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -60,7 +62,8 @@ class _CountriesListState extends State<CountriesList> {
                 flex: 4,
                 child: Padding(
                     padding: EdgeInsets.only(left: 10.0),
-                    child: Text(country.code2L,
+                    child: Text(
+                        country.distance.toString().substring(0, 8) + ' km',
                         style: TextStyle(
                             color: Colors.green, fontWeight: FontWeight.bold))),
               )
@@ -107,7 +110,7 @@ class _CountriesListState extends State<CountriesList> {
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  itemCount: null == _countries ? 0 : _countries.length,
+                  itemCount: _countries.length,
                   itemBuilder: (context, index) {
                     Country country = _countries[index];
                     return makeCard(country);
@@ -127,5 +130,25 @@ class _CountriesListState extends State<CountriesList> {
       appBar: topAppBar,
       body: makeBody,
     );
+  }
+
+  distanceCalculation(double long, double lat) async {
+    for (var d in _countries) {
+      if (d.latitude != null) {
+        var km = CountryController().getDistanceFromLatLonInKm(
+            lat, long, double.parse(d.latitude), double.parse(d.longitude));
+        d.distance = km;
+      }
+    }
+    setState(() {
+      _countries.sort((a, b) {
+        if (a.distance == null) {
+          a.distance = 9999.9999;
+        } else if (b.distance == null) {
+          b.distance = 9999.9999;
+        }
+        return a.distance.compareTo(b.distance);
+      });
+    });
   }
 }
