@@ -91,8 +91,7 @@ class _NoteScreenState extends State<NoteScreen>
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) =>
-                UpdateNoteScreen(note: note, countryid: widget.countryid),
+            builder: (_) => UpdateNoteScreen(note: note),
           ),
         ).then((value) => getNotes());
       },

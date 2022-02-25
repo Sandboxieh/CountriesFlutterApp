@@ -7,9 +7,8 @@ import 'package:countries_interview_application/model/noteModel.dart';
 class UpdateNoteScreen extends StatefulWidget {
   final Note note;
   final bool isEdit;
-  final dynamic countryid;
-  UpdateNoteScreen({Key key, this.note, this.isEdit = false, this.countryid})
-      : super(key: key);
+
+  UpdateNoteScreen({Key key, this.note, this.isEdit = false}) : super(key: key);
 
   @override
   _UpdateNoteScreenState createState() => _UpdateNoteScreenState();
@@ -34,7 +33,7 @@ class _UpdateNoteScreenState extends State<UpdateNoteScreen> {
           "id": widget.note.id,
           "title": _title.text,
           "content": _content.text,
-          "countryid": widget.countryid
+          "countryid": widget.note.countryid
         },
       ),
     );
@@ -48,7 +47,7 @@ class _UpdateNoteScreenState extends State<UpdateNoteScreen> {
           Note(
             "${_title.text}",
             "${_content.text}",
-            "${widget.countryid}",
+            "${widget.note.countryid}",
           ),
         )
         .then((value) => Navigator.pop(context));

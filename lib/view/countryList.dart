@@ -98,15 +98,22 @@ class _CountriesListState extends State<CountriesList> {
           return;
         },
         child: Container(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: null == _countries ? 0 : _countries.length,
-            itemBuilder: (context, index) {
-              Country country = _countries[index];
-              return makeCard(country);
-            },
-          ),
+          child: FutureBuilder(
+              future: CountryController.getCountries(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return (Center(child: CircularProgressIndicator()));
+                }
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: null == _countries ? 0 : _countries.length,
+                  itemBuilder: (context, index) {
+                    Country country = _countries[index];
+                    return makeCard(country);
+                  },
+                );
+              }),
         ));
 
     final topAppBar = AppBar(
