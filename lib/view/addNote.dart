@@ -69,7 +69,6 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                               hintText: 'Note Title',
                               hintStyle: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            onChanged: (String value) => _title.text = value,
                           )),
                       Padding(
                         padding: const EdgeInsets.only(right: 15.0, left: 15.0),
@@ -91,8 +90,6 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                               decoration: InputDecoration.collapsed(
                                   hintText: 'Type your note here...'),
                               textCapitalization: TextCapitalization.sentences,
-                              onChanged: (String value) =>
-                                  _content.text = value,
                             ),
                           ),
                         ],
