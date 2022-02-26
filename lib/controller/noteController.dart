@@ -82,4 +82,12 @@ class NoteController {
     var dbClient = await db;
     return dbClient.close();
   }
+
+  static String validateTitle(String value) {
+    return value.isEmpty ? 'Title can\'t be empty' : null;
+  }
+
+  static String validateContent(String value) {
+    return value.isEmpty ? 'Content can\'t be empty' : null;
+  }
 }

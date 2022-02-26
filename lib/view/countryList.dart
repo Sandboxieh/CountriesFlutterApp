@@ -63,7 +63,7 @@ class _CountriesListState extends State<CountriesList> {
                 child: Padding(
                     padding: EdgeInsets.only(left: 10.0),
                     child: Text(
-                        country.distance.toString().substring(0, 8) + ' km',
+                        country.distance.toString().substring(0, 7) + ' km',
                         style: TextStyle(
                             color: Colors.green, fontWeight: FontWeight.bold))),
               )

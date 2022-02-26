@@ -16,79 +16,93 @@ class AddNotesScreen extends StatefulWidget {
 class _AddNotesScreenState extends State<AddNotesScreen> {
   TextEditingController _title = TextEditingController();
   TextEditingController _content = TextEditingController();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   saveNote() {
-    NoteController()
-        .saveNote(
-          Note("${_title.text}", "${_content.text}", "${widget.countryid}"),
-        )
-        .then((value) => Navigator.pop(context));
+    if (_formKey.currentState.validate()) {
+      NoteController()
+          .saveNote(
+            Note("${_title.text}", "${_content.text}", "${widget.countryid}"),
+          )
+          .then((value) => Navigator.pop(context));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.1,
-        title: Text(
-          'Add Note',
-          style: TextStyle(fontWeight: FontWeight.w400),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Feather.save),
-            onPressed: () => saveNote(),
+        appBar: AppBar(
+          elevation: 0.1,
+          title: Text(
+            'Add a Note',
+            style: TextStyle(fontWeight: FontWeight.w400),
           ),
-        ],
-      ),
-      body: ListView(
-        children: <Widget>[
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10),
-            child: Container(
-              height: MediaQuery.of(context).size.height - 20,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: TextField(
-                        controller: _title,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Note Title',
-                          hintStyle: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0, left: 15.0),
-                    child: Divider(
-                      color: Colors.grey,
-                      thickness: 0.3,
-                    ),
-                  ),
-                  Expanded(
-                      child: Column(
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Feather.save),
+                key: Key('save'),
+                onPressed: () {
+                  saveNote();
+                }),
+          ],
+        ),
+        body: SingleChildScrollView(
+            child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                child: Container(
+                  height: MediaQuery.of(context).size.height - 20,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: TextField(
-                          controller: _content,
-                          maxLines: null,
-                          decoration: InputDecoration.collapsed(
-                              hintText: 'Type your note here...'),
-                          textCapitalization: TextCapitalization.sentences,
+                          padding: const EdgeInsets.all(1.0),
+                          child: TextFormField(
+                            key: Key('title'),
+                            controller: _title,
+                            validator: NoteController.validateTitle,
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration.collapsed(
+                              hintText: 'Note Title',
+                              hintStyle: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onChanged: (String value) => _title.text = value,
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15.0, left: 15.0),
+                        child: Divider(
+                          color: Colors.grey,
+                          thickness: 0.3,
                         ),
                       ),
+                      Expanded(
+                          child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: TextFormField(
+                              key: Key('content'),
+                              controller: _content,
+                              validator: NoteController.validateContent,
+                              maxLines: null,
+                              decoration: InputDecoration.collapsed(
+                                  hintText: 'Type your note here...'),
+                              textCapitalization: TextCapitalization.sentences,
+                              onChanged: (String value) =>
+                                  _content.text = value,
+                            ),
+                          ),
+                        ],
+                      ))
                     ],
-                  ))
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+                  ),
+                ),
+              )
+            ],
+          ),
+        )));
   }
 }
