@@ -27,12 +27,10 @@ class CountryDetailsPage extends StatelessWidget {
       ),
     );
 
-    final topContentText = Column(
+    final topContentText = SingleChildScrollView(
+        child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(
-          height: 40,
-        ),
         Image.network(
           country.flag,
           width: 40,
@@ -45,7 +43,7 @@ class CountryDetailsPage extends StatelessWidget {
         SizedBox(height: 10.0),
         Text(
           country.name,
-          style: TextStyle(color: Colors.white, fontSize: 35.0),
+          style: TextStyle(color: Colors.white, fontSize: 25.0),
         ),
         SizedBox(height: 30.0),
         Row(
@@ -53,7 +51,7 @@ class CountryDetailsPage extends StatelessWidget {
           children: <Widget>[
             Expanded(flex: 1, child: levelIndicator),
             Expanded(
-                flex: 6,
+                flex: 4,
                 child: Padding(
                     padding: EdgeInsets.only(left: 10.0),
                     child: Text(
@@ -64,13 +62,13 @@ class CountryDetailsPage extends StatelessWidget {
           ],
         ),
       ],
-    );
+    ));
 
     final topContent = Stack(
       children: <Widget>[
         Container(
             padding: EdgeInsets.only(left: 10.0),
-            height: MediaQuery.of(context).size.height * 0.5,
+            height: MediaQuery.of(context).size.height * 0.4,
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage("assets/images/metidecrossplatform.jpg"),
@@ -78,7 +76,7 @@ class CountryDetailsPage extends StatelessWidget {
               ),
             )),
         Container(
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: MediaQuery.of(context).size.height * 0.4,
           padding: EdgeInsets.all(40.0),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, .9)),
@@ -140,6 +138,7 @@ class CountryDetailsPage extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: floatingActionButton,
+      resizeToAvoidBottomInset: true,
       body: Column(
         children: <Widget>[topContent, bottomContent],
       ),
