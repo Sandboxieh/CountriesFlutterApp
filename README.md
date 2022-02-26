@@ -14,6 +14,8 @@ This is an interview application coded with dart using **Flutter SDK 2.0.5.**
 
 ## Demo 
 
+A demo video available on youtube: https://youtu.be/sW_05GZXKRc
+
 ![https://youtu.be/sW_05GZXKRc](https://i.ibb.co/L5jqyvs/app.png)
   
 ## Explanation
