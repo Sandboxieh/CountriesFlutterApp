@@ -36,10 +36,6 @@ class CountryDetailsPage extends StatelessWidget {
           width: 40,
           height: 40,
         ),
-        Container(
-          width: 90.0,
-          child: new Divider(color: Colors.green),
-        ),
         SizedBox(height: 10.0),
         Text(
           country.name,
